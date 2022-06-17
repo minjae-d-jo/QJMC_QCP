@@ -15,73 +15,39 @@ const int NN = 8;
 typedef complex<double> dcomplex;
 using Size = unsigned int;
 
-vector<dcomplex> normalize(vector<dcomplex>& state) {
-    double normalizationFactor = 0;
-    for(Size i=0; i<state.size(); ++i) normalizationFactor += norm(state[i]);
-    for(Size i=0; i<state.size(); ++i) state[i] /= sqrt(normalizationFactor);
-    return state;
+class QCP_1D {
+private:
+    Size number_of_time_step;
+    Size N;
+    double omega;
+    Size number_of_ensemble;
+    double gamma;
+    double dt;
+
+public:
+    QCP_1D(const Size, const Size, const double, const Size, const double, const double);
+    ~QCP_1D();
+    void QJMC();
+    vector<dcomplex> normalize(vector<dcomplex>& state);
+    vector<dcomplex> vectorCal(vector<dcomplex>& state, vector<dcomplex>& k, const double dt, const double num);
+    double calDecayDeltaP(Size site, const double dt, vector<dcomplex>& state, const Size N, const double gamma);
+    vector<dcomplex> emissionDecay(Size site, vector<dcomplex>& state, const Size N);
+    vector<dcomplex> dcdt(vector<dcomplex> state, const Size N, const double omega, const double gamma);
+};
+
+QCP_1D::QCP_1D(const Size _number_of_time_step_, const Size _N_, const double _omega_, const Size _number_of_ensemble_, const double _gamma_, const double _dt_)
+: number_of_time_step(_number_of_time_step_), N(_N_), omega(_omega_), number_of_ensemble(_number_of_ensemble_), gamma(_gamma_), dt(_dt_) {
 }
 
-vector<dcomplex> vectorCal(vector<dcomplex>& state, vector<dcomplex>& k, const double dt, const double num) {
-    vector<dcomplex> cc(state.size());
-    for(Size i=0; i<state.size(); ++i) cc[i] = state[i]+k[i]*dt/num;
-    return cc;
+QCP_1D::~QCP_1D() {
 }
 
-// Decay Lindblad Operator
-double calDecayDeltaP(Size site, const double dt, vector<dcomplex>& state, const Size N, const double gamma) {
-    double deltaP = 0;
-    for(Size i=0; i<pow(2, N); ++i) {
-        if(bitset<NN>(i)[site] == 1) {
-            deltaP += gamma*dt*(norm(state[i]));
-        }
-    }
-    return deltaP;
-}
-
-vector<dcomplex> emissionDecay(Size site, vector<dcomplex>& state, const Size N) {
-    vector<dcomplex> cc(pow(2, N));
-    for(Size i=0; i<pow(2, N); ++i) {
-        if(bitset<NN>(i)[site] == 1) {
-            cc[bitset<NN>(i).flip(site).to_ulong()] += state[i];
-        }
-    }
-    cc = normalize(cc);
-    return cc;
-}
-
-// Runge-Kutta method for the differential value of wavefunction
-vector<dcomplex> dcdt(vector<dcomplex> state, const Size N, const double omega, const double gamma) {
-    dcomplex I(0, 1);
-    vector<dcomplex> cc(pow(2,N));
-    for(Size j=0; j<N; ++j) {
-        for(Size i=0; i<pow(2, N); ++i) {
-            Size jPrev = j == 0 ? N-1 : j-1;
-            Size jNext = j == N-1 ? 0 : j+1;
-            Size jFlip = bitset<NN>(i).flip(j).to_ulong();
-            if(bitset<NN>(i)[j] == 1) {
-                cc[i] -= (dcomplex)(gamma/2.)*state[i]; // decay
-            }
-            cc[jFlip] -= I*(dcomplex)(omega*(bitset<NN>(i)[jPrev]+bitset<NN>(i)[jNext]))*(state[i]); // Quantum part
-        }
-    }
-    return cc;
-}
-
-int main(int argc, char *argv[]) {
-    const Size number_of_time_step = stoul(argv[1]);
-    const Size N = stoul(argv[2]);
-    const double omega = stod(argv[3]);
-    const double number_of_ensemble = stoul(argv[4]);
-    const double gamma = 1;
+void QCP_1D::QJMC() {
     vector<dcomplex> state(pow(2, N));
     vector<dcomplex> k1(pow(2, N));
     vector<dcomplex> k2(pow(2, N));
     vector<dcomplex> k3(pow(2, N));
     vector<dcomplex> k4(pow(2, N));
-    double dt = 0.01;
-
-    
     RandomRealGenerator rnd(0.0, 1.0);
     vector<double> orderParameter(number_of_time_step);
     vector<double> deltaP(N);
@@ -117,5 +83,74 @@ int main(int argc, char *argv[]) {
         }
     }
     for(Size t=0; t<number_of_time_step; ++t) cout << t*dt*gamma << '\t' << orderParameter[t]/number_of_ensemble/N << endl;
-    return 0;
+}
+    
+vector<dcomplex> QCP_1D::normalize(vector<dcomplex>& state) {
+    double normalizationFactor = 0;
+    for(Size i=0; i<state.size(); ++i) normalizationFactor += norm(state[i]);
+    for(Size i=0; i<state.size(); ++i) state[i] /= sqrt(normalizationFactor);
+    return state;
+}
+
+vector<dcomplex> QCP_1D::vectorCal(vector<dcomplex>& state, vector<dcomplex>& k, const double dt, const double num) {
+    vector<dcomplex> cc(state.size());
+    for(Size i=0; i<state.size(); ++i) cc[i] = state[i]+k[i]*dt/num;
+    return cc;
+}
+
+// Decay Lindblad Operator
+double QCP_1D::calDecayDeltaP(Size site, const double dt, vector<dcomplex>& state, const Size N, const double gamma) {
+    double deltaP = 0;
+    for(Size i=0; i<pow(2, N); ++i) {
+        if(bitset<NN>(i)[site] == 1) {
+            deltaP += gamma*dt*(norm(state[i]));
+        }
+    }
+    return deltaP;
+}
+
+vector<dcomplex> QCP_1D::emissionDecay(Size site, vector<dcomplex>& state, const Size N) {
+    vector<dcomplex> cc(pow(2, N));
+    for(Size i=0; i<pow(2, N); ++i) {
+        if(bitset<NN>(i)[site] == 1) {
+            cc[bitset<NN>(i).flip(site).to_ulong()] += state[i];
+        }
+    }
+    cc = normalize(cc);
+    return cc;
+}
+
+// Runge-Kutta method for the differential value of wavefunction
+vector<dcomplex> QCP_1D::dcdt(vector<dcomplex> state, const Size N, const double omega, const double gamma) {
+    dcomplex I(0, 1);
+    vector<dcomplex> cc(pow(2,N));
+    for(Size j=0; j<N; ++j) {
+        for(Size i=0; i<pow(2, N); ++i) {
+            Size jPrev = j == 0 ? N-1 : j-1;
+            Size jNext = j == N-1 ? 0 : j+1;
+            Size jFlip = bitset<NN>(i).flip(j).to_ulong();
+            if(bitset<NN>(i)[j] == 1) {
+                cc[i] -= (dcomplex)(gamma/2.)*state[i]; // decay
+            }
+            cc[jFlip] -= I*(dcomplex)(omega*(bitset<NN>(i)[jPrev]+bitset<NN>(i)[jNext]))*(state[i]); // Quantum part
+        }
+    }
+    return cc;
+}
+
+int main(int argc, char *argv[]) {
+    const Size   number_of_time_step = stoul(argv[1]);
+    const Size   N = stoul(argv[2]);
+    const double omega = stod(argv[3]);
+    const Size   number_of_ensemble = stoul(argv[4]);
+    const double gamma = 1;
+    const double dt = 0.01;
+
+    std::ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+
+    QCP_1D* Model = new QCP_1D(number_of_time_step, N, omega, number_of_ensemble, gamma, dt);
+    
+    Model -> QJMC();
+    delete Model;
 }
