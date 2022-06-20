@@ -149,13 +149,13 @@ namespace Cnrc {
 			, dist(l, u){
 			}
 			
-			RandomRealGenerator(const RandomRealGenerator&) = default;
+			RandomRealGenerator(const RandomRealGenerator&);
 			
-			RandomRealGenerator(RandomRealGenerator&&) = default;
+			RandomRealGenerator(RandomRealGenerator&&);
 			
-			RandomRealGenerator& operator=(const RandomRealGenerator&) = default;
+			RandomRealGenerator& operator=(const RandomRealGenerator&);
 			
-			RandomRealGenerator& operator=(RandomRealGenerator&&) = default;
+			RandomRealGenerator& operator=(RandomRealGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -179,13 +179,13 @@ namespace Cnrc {
 			, dist(l, u) {
 			}
 			
-			RandomIntGenerator(const RandomIntGenerator&) = default;
+			RandomIntGenerator(const RandomIntGenerator&);
 			
-			RandomIntGenerator(RandomIntGenerator&&) = default;
+			RandomIntGenerator(RandomIntGenerator&&);
 			
-			RandomIntGenerator& operator=(const RandomIntGenerator&) = default;
+			RandomIntGenerator& operator=(const RandomIntGenerator&);
 			
-			RandomIntGenerator& operator=(RandomIntGenerator&&) = default;
+			RandomIntGenerator& operator=(RandomIntGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -209,13 +209,13 @@ namespace Cnrc {
 			, dist(l, u) {
 			}
 			
-			RandomLongLongGenerator(const RandomLongLongGenerator&) = default;
+			RandomLongLongGenerator(const RandomLongLongGenerator&);
 			
-			RandomLongLongGenerator(RandomLongLongGenerator&&) = default;
+			RandomLongLongGenerator(RandomLongLongGenerator&&);
 			
-			RandomLongLongGenerator& operator=(const RandomLongLongGenerator&) = default;
+			RandomLongLongGenerator& operator=(const RandomLongLongGenerator&);
 			
-			RandomLongLongGenerator& operator=(RandomLongLongGenerator&&) = default;
+			RandomLongLongGenerator& operator=(RandomLongLongGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -239,13 +239,13 @@ namespace Cnrc {
 			, dist(l, u) {
 			}
 			
-			RandomUnsignedIntGenerator(const RandomUnsignedIntGenerator&) = default;
+			RandomUnsignedIntGenerator(const RandomUnsignedIntGenerator&);
 			
-			RandomUnsignedIntGenerator(RandomUnsignedIntGenerator&&) = default;
+			RandomUnsignedIntGenerator(RandomUnsignedIntGenerator&&);
 			
-			RandomUnsignedIntGenerator& operator=(const RandomUnsignedIntGenerator&) = default;
+			RandomUnsignedIntGenerator& operator=(const RandomUnsignedIntGenerator&);
 			
-			RandomUnsignedIntGenerator& operator=(RandomUnsignedIntGenerator&&) = default;
+			RandomUnsignedIntGenerator& operator=(RandomUnsignedIntGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -269,13 +269,13 @@ namespace Cnrc {
 			, dist(l, u) {
 			}
 			
-			RandomUnsignedLongLongGenerator(const RandomUnsignedLongLongGenerator&) = default;
+			RandomUnsignedLongLongGenerator(const RandomUnsignedLongLongGenerator&);
 			
-			RandomUnsignedLongLongGenerator(RandomUnsignedLongLongGenerator&&) = default;
+			RandomUnsignedLongLongGenerator(RandomUnsignedLongLongGenerator&&);
 			
-			RandomUnsignedLongLongGenerator& operator=(const RandomUnsignedLongLongGenerator&) = default;
+			RandomUnsignedLongLongGenerator& operator=(const RandomUnsignedLongLongGenerator&);
 			
-			RandomUnsignedLongLongGenerator& operator=(RandomUnsignedLongLongGenerator&&) = default;
+			RandomUnsignedLongLongGenerator& operator=(RandomUnsignedLongLongGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -300,13 +300,13 @@ namespace Cnrc {
 			, dist(0, 1) {
 			}
 			
-			RandomPowerLawIntGenerator(const RandomPowerLawIntGenerator&) = default;
+			RandomPowerLawIntGenerator(const RandomPowerLawIntGenerator&);
 			
-			RandomPowerLawIntGenerator(RandomPowerLawIntGenerator&&) = default;
+			RandomPowerLawIntGenerator(RandomPowerLawIntGenerator&&);
 			
-			RandomPowerLawIntGenerator& operator=(const RandomPowerLawIntGenerator&) = default;
+			RandomPowerLawIntGenerator& operator=(const RandomPowerLawIntGenerator&);
 			
-			RandomPowerLawIntGenerator& operator=(RandomPowerLawIntGenerator&&) = default;
+			RandomPowerLawIntGenerator& operator=(RandomPowerLawIntGenerator&&);
 			
 			/*
 				http://mathworld.wolfram.com/RandomNumber.html
@@ -342,13 +342,13 @@ namespace Cnrc {
 			, dist(0, 1) {
 			}
 			
-			RandomPowerLawDoubleGenerator(const RandomPowerLawDoubleGenerator&) = default;
+			RandomPowerLawDoubleGenerator(const RandomPowerLawDoubleGenerator&);
 			
-			RandomPowerLawDoubleGenerator(RandomPowerLawDoubleGenerator&&) = default;
+			RandomPowerLawDoubleGenerator(RandomPowerLawDoubleGenerator&&);
 			
-			RandomPowerLawDoubleGenerator& operator=(const RandomPowerLawDoubleGenerator&) = default;
+			RandomPowerLawDoubleGenerator& operator=(const RandomPowerLawDoubleGenerator&);
 			
-			RandomPowerLawDoubleGenerator& operator=(RandomPowerLawDoubleGenerator&&) = default;
+			RandomPowerLawDoubleGenerator& operator=(RandomPowerLawDoubleGenerator&&);
 			
 			/*
 				http://mathworld.wolfram.com/RandomNumber.html
@@ -376,13 +376,13 @@ namespace Cnrc {
 			, dist(location, scale) {
 			}
 			
-			RandomCauchyGenerator(const RandomCauchyGenerator&) = default;
+			RandomCauchyGenerator(const RandomCauchyGenerator&);
 			
-			RandomCauchyGenerator(RandomCauchyGenerator&&) = default;
+			RandomCauchyGenerator(RandomCauchyGenerator&&);
 			
-			RandomCauchyGenerator& operator=(const RandomCauchyGenerator&) = default;
+			RandomCauchyGenerator& operator=(const RandomCauchyGenerator&);
 			
-			RandomCauchyGenerator& operator=(RandomCauchyGenerator&&) = default;
+			RandomCauchyGenerator& operator=(RandomCauchyGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -403,13 +403,13 @@ namespace Cnrc {
 			, dist(mean, stddev) {
 			}
 			
-			RandomGaussianGenerator(const RandomGaussianGenerator&) = default;
+			RandomGaussianGenerator(const RandomGaussianGenerator&);
 			
-			RandomGaussianGenerator(RandomGaussianGenerator&&) = default;
+			RandomGaussianGenerator(RandomGaussianGenerator&&);
 			
-			RandomGaussianGenerator& operator=(const RandomGaussianGenerator&) = default;
+			RandomGaussianGenerator& operator=(const RandomGaussianGenerator&);
 			
-			RandomGaussianGenerator& operator=(RandomGaussianGenerator&&) = default;
+			RandomGaussianGenerator& operator=(RandomGaussianGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -430,13 +430,13 @@ namespace Cnrc {
 			, dist(location, scale) {
 			}
 			
-			RandomLogNormalGenerator(const RandomLogNormalGenerator&) = default;
+			RandomLogNormalGenerator(const RandomLogNormalGenerator&);
 			
-			RandomLogNormalGenerator(RandomLogNormalGenerator&&) = default;
+			RandomLogNormalGenerator(RandomLogNormalGenerator&&);
 			
-			RandomLogNormalGenerator& operator=(const RandomLogNormalGenerator&) = default;
+			RandomLogNormalGenerator& operator=(const RandomLogNormalGenerator&);
 			
-			RandomLogNormalGenerator& operator=(RandomLogNormalGenerator&&) = default;
+			RandomLogNormalGenerator& operator=(RandomLogNormalGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);
@@ -457,13 +457,13 @@ namespace Cnrc {
 			, dist(mean) {
 			}
 			
-			RandomPoissonGenerator(const RandomPoissonGenerator&) = default;
+			RandomPoissonGenerator(const RandomPoissonGenerator&);
 			
-			RandomPoissonGenerator(RandomPoissonGenerator&&) = default;
+			RandomPoissonGenerator(RandomPoissonGenerator&&);
 			
-			RandomPoissonGenerator& operator=(const RandomPoissonGenerator&) = default;
+			RandomPoissonGenerator& operator=(const RandomPoissonGenerator&);
 			
-			RandomPoissonGenerator& operator=(RandomPoissonGenerator&&) = default;
+			RandomPoissonGenerator& operator=(RandomPoissonGenerator&&);
 			
 			ReturnType operator()() {
 				return dist(engine);

@@ -36,4 +36,4 @@ function debugBuild {
 }
 
 
-build QJMC_ManyBodySteady_8
+build QCP_8
